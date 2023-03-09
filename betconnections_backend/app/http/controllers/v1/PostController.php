@@ -35,10 +35,7 @@ class PostController
         $userId = isset($request->getParsedBody()['userId'])    ? $request->getParsedBody()['userId']   : null;
 
         $fieldsAreCorrect = Fields::validate([$title, $body, $userId]);
-
-        if (!$fieldsAreCorrect) {
-            return Fields::messageError($response);
-        }
+        if (!$fieldsAreCorrect) return Fields::messageError($response);
 
         $request = new CurlRequest(self::$URL);
         $request->setBody([

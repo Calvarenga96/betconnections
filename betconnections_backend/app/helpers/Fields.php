@@ -2,20 +2,22 @@
 
 namespace App\Helpers;
 
+use Psr\Http\Message\ResponseInterface as Response;
+
 class Fields
 {
-    public static function validate(array $fields)
+    public static function validate(array $fields): bool
     {
         $allFieldsAreOk = true;
         foreach ($fields as $field) {
-            if (!$field) {
+            if (!$field || empty($field)) {
                 $allFieldsAreOk = false;
             }
         }
         return $allFieldsAreOk;
     }
 
-    public static function messageError($response)
+    public static function messageError(Response $response): Response
     {
         $responseMessage = json_encode([
             'error'     => true,

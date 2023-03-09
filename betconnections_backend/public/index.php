@@ -3,7 +3,8 @@
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 
-use App\Controllers\PostController;
+use App\Http\Controllers\V1\PostController;
+use App\Http\Controllers\V1\UserController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -23,6 +24,12 @@ $app->group('/v1', function (RouteCollectorProxy $group) {
     $group->post('/posts',          [PostController::class, 'store']);
     $group->put('/posts/{id}',      [PostController::class, 'update']);
     $group->delete('/posts/{id}',   [PostController::class, 'destroy']);
+
+    $group->get('/users',           [UserController::class, 'index']);
+    $group->get('/users/{id}',      [UserController::class, 'show']);
+    $group->post('/users',          [UserController::class, 'store']);
+    $group->put('/users/{id}',      [UserController::class, 'update']);
+    $group->delete('/users/{id}',   [UserController::class, 'destroy']);
 });
 
 $app->run();
